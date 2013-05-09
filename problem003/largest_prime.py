@@ -1,7 +1,7 @@
 import sys
 import math
 
-def isPrime(n):
+def is_prime(n):
   '''
   Decide if a number is prime
   '''
@@ -16,7 +16,7 @@ def prime_factorization(n):
   '''
   i = 2
   while i < int(n/2)+1:
-    if n%i == 0 and isPrime(i):
+    if n%i == 0 and is_prime(i):
       return [i]+prime_factorization(n/i)
     i += 1
   return [n]
