@@ -3,4 +3,4 @@ euler
 
 Project Euler
 
-Solutions to the Euler project problems (projecteuler.net)
+Solutions to the Euler project problems (http://www.projecteuler.net)
