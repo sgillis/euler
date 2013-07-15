@@ -42,20 +42,24 @@ def main():
   matrix = read_grid(Grid)
   max_product = 0.0
   # Check the product in the right direction
-  for i in range(matrix.shape[0]):
-    for j in range(matrix.shape[1]):
+  for i in range(matrix.shape[1]):
+    for j in range(matrix.shape[0]):
       right_product = matrix[j,i:i+4].prod()
       down_product = matrix[j:j+4,i].prod()
-      # We do a try here for if the indices go out of bounds
-      try:
+      if i<matrix.shape[1]-3 and j<matrix.shape[0]-3:
         down_right_product = numpy.array([ matrix[j+offset,i+offset] for \
-          offset in range(4)])
-        print down_right_product
-        down_right_product = down_right_product.prod()
-      except IndexError:
+            offset in range(4)]).prod()
+      else:
         down_right_product = 0
-      if max(right_product,down_product,down_right_product) > max_product:
-        max_product = max(right_product,down_product,down_right_product)
+      if i>2 and j<matrix.shape[0]-3:
+        down_left_product = numpy.array([ matrix[j+offset,i-offset] for \
+            offset in range(4)]).prod()
+      else:
+        down_left_product = 0
+      if max(right_product,down_product,down_right_product,down_left_product)\
+            > max_product:
+        max_product = \
+            max(right_product,down_product,down_right_product, down_left_product)
   print max_product
 
 if __name__ == '__main__':
