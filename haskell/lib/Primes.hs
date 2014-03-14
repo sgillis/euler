@@ -1,5 +1,6 @@
 module Primes where
 
+-- Prime factorization
 primeFactors' :: Int -> Int -> [Int]
 primeFactors' 1 _ = []
 primeFactors' n f
@@ -9,6 +10,7 @@ primeFactors' n f
 primeFactors :: Int -> [Int]
 primeFactors n = primeFactors' n 2
 
+-- Find lcm
 data PrimeMult = PrimeMult { prime :: Int
                            , mult :: Int } deriving (Show)
 
@@ -40,3 +42,9 @@ getNumber ((PrimeMult p m):xs) = (p^m)*(getNumber xs)
 
 smallestMultiple :: [Int] -> Int
 smallestMultiple xs = getNumber $ foldl smallestMultipleDecomp (decompose 1) (map decompose xs)
+
+-- Prime generation
+primes :: [Int]
+primes = sieve [2..]
+    where
+        sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p > 0]
