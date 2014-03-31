@@ -48,3 +48,21 @@ primes :: [Int]
 primes = sieve [2..]
     where
         sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p > 0]
+
+-- Prime generation until a given number
+divisibleBy :: Int -> Int -> Bool
+divisibleBy x y = x `mod` y == 0
+
+isqrt :: Int -> Int
+isqrt = floor . sqrt . fromIntegral
+
+isPrime :: Int -> Bool
+isPrime x = null (filter (== True) (map (divisibleBy x) [3,5..max_x]))
+    where max_x = 1 + isqrt x
+
+findPrimes :: Int -> [Int]
+findPrimes 1 = [2]
+findPrimes x
+    | even x    = findPrimes (x-1)
+    | isPrime x = x : findPrimes (x-1)
+    | otherwise = findPrimes (x-2)
