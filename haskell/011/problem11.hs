@@ -1,8 +1,7 @@
-import Control.Monad (liftM)
+import Control.Arrow
+import Data.Array
 
-main = do
-    contents <- liftM parseInput $ readFile "input.txt"
-    return contents
+input :: String -> Array (Int, Int) Int
+input = listArray ((1,1),(20,20)) . map read . concat . map words . lines
 
-parseInput :: String -> [[Int]]
-parseInput = map (\list -> map read list :: [Int]) . map words . lines
+main = print . input =<< readFile "input.txt"
